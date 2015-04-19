@@ -1,0 +1,4 @@
+﻿<svg xml:space="default" version="1.1" width="250" height="250" xmlns="http://www.w3.org/2000/svg">
+	<circle fill="none" stroke="black" stroke-width="15px" cx="125" cy="125" r="110px" />
+	<circle fill="none" stroke="black" stroke-width="10px" cx="125" cy="125" r="70px" />
+</svg>

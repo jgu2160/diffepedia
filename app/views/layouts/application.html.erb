@@ -1,14 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Diffepedia</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'application'%>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Diffepedia, the Wikipedia comparator</title>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application'%>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
 
-<%= yield %>
+        <div class="navbar-header">
+          <a class="navbar-brand" id="nav-title" href="/"><span class="bigger">D</span>IFFEPEDI<span class="bigger">A</span>
+            <br><span id="little-title">The Wikipedia Comparator</span></a>
+        </div>
 
-</body>
+        <div class="collapse navbar-collapse pull-right" id="misc-nav">
+          <ul class="nav navbar-nav">
+            <li>hi</li>
+            <li>hi</li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <%= yield %>
+
+  </body>
 </html>

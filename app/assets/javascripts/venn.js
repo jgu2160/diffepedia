@@ -5,7 +5,10 @@
             padding = 15,
             duration = 1000,
             fontSize = null,
-            colours = d3.scale.category10(),
+            //colours = d3.scale.category20c(),
+            colours = d3.scale.linear()
+            .domain([1, 4])
+            .range(["#00a136", "#9933FF"]),
             layoutFunction = venn.venn;
 
         function chart(selection) {
@@ -69,7 +72,9 @@
                 enter.append("path")
                     .style("fill-opacity", "0")
                     .filter(function (d) { return d.sets.length == 1; } )
-                    .style("fill", function(d) { return colours(label(d)); })
+                    .transition().duration(5000)
+                    .delay(function(d, i) { return i / 1.1 * duration; })
+                    .style("fill", function(d) { return colours(label(d).length); })
                     .style("fill-opacity", ".25");
 
                 var enterText = enter.append("text")
@@ -523,7 +528,8 @@
                 joined,
                 lineNumber = 0,
                 lineHeight = 1.1, // ems
-                tspan = text.text(null).append("tspan").text(word);
+                tspan = text.text(null)
+                .append("tspan").text(word);
 
             while (word = words.pop()) {
                 line.push(word);
@@ -533,7 +539,8 @@
                     line.pop();
                     tspan.text(line.join(" "));
                     line = [word];
-                    tspan = text.append("tspan").text(word);
+                    tspan = text.
+                      append("tspan").text(word);
                     lineNumber++;
                 }
             }

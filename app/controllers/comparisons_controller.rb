@@ -1,5 +1,18 @@
 class ComparisonsController < ApplicationController
-  def index
-
+  def new
+    @languages = [
+      "English",
+      "Swedish",
+      "Dutch",
+      "German",
+      "French",
+      "Waray-Waray",
+      "Russian",
+      "Cebuano",
+      "Italian",
+      "Spanish",
+      "Vietnamese",
+      "Polish"
+    ]
   end
 end
