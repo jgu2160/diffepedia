@@ -75,15 +75,10 @@ select {
   display: inline-block;
   top: 1px;
   right: .8px;
-  background: url(black-down.svg) right / 100%  no-repeat white;
+  background: image-url("black-down.svg") right / 100%  no-repeat white;
   border-radius: 3px;
   pointer-events: none;
 
-}
-
-.select-div .fancyArrow:hover {
-  background: url(wiki-blue-down.svg) right / 100%  no-repeat white;
-  transition: .5s;
 }
 
 select:-moz-focusring {
