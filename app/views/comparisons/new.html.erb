@@ -1,47 +1,55 @@
-<div id="url-div">
-  <%= form_for :comparison, class: "form" do |f| %>
-    <%= f.text_field :url, placeholder: "Please enter a Wikipedia URL.", class: "form-control" %>
-  <% end %>
-</div>
+<div id="main-div">
 
-<div class="center-block text-center">
-  <div class="select-div">
-    <span class="fancyArrow"></span>
-    <select name="post[category_id]">
-      <% @languages.each do |language| %>
-        <option value="<%= language %>"><%= language %></option>
-      <% end %>
-    </select>
+  <div id="url-div">
+    <%= form_for :comparison, class: "form" do |f| %>
+      <%= f.text_field :url, placeholder: "Please enter a Wikipedia URL", class: "form-control" %>
+    <% end %>
   </div>
-  &nbsp;
-  &nbsp;
-  &nbsp;
-  &nbsp;
-  <%= link_to root_path, id: "submit", class: "text-center" do %>
-    <span class="glyphicon glyphicon-refresh text-center"></span>
-  <% end %>
-  &nbsp;
-  &nbsp;
-  <div class="select-div">
-    <span class="fancyArrow"></span>
-    <select name="post[category_id]">
-      <% @languages.each do |language| %>
-        <option value="<%= language %>"><%= language %></option>
-      <% end %>
-    </select>
-  </div>
-  <span id="between" data-toggle="tooltip" title="The dropdown on the right dictates the common language of comparison, which by default is the first language chosen." class="glyphicon glyphicon-random"></span>
-  <div class="select-div">
-    <span class="fancyArrow"></span>
-    <select name="post[category_id]">
-      <% @languages.each do |language| %>
-        <option value="<%= language %>"><%= language %></option>
-      <% end %>
-    </select>
-  </div>
-</div>
 
-<div id="venn1" class="center-block text-center">
+  <div class="center-block text-center">
+    <div class="select-div">
+      <span class="fancyArrow"></span>
+      <select name="post[category_id]">
+        <% @languages.each do |language| %>
+          <option value="<%= language %>"><%= language %></option>
+        <% end %>
+      </select>
+    </div>
+    &nbsp;
+    &nbsp;
+    &nbsp;
+    &nbsp;
+    <%= link_to root_path, id: "submit", class: "text-center" do %>
+      <span class="glyphicon glyphicon-refresh text-center"></span>
+    <% end %>
+    &nbsp;
+    &nbsp;
+    <div class="select-div">
+      <span class="fancyArrow"></span>
+      <select name="post[category_id]">
+        <% @languages.each do |language| %>
+          <option value="<%= language %>"><%= language %></option>
+        <% end %>
+      </select>
+    </div>
+    <span id="between" data-toggle="tooltip" title="The dropdown on the right dictates the common language of comparison, which by default is the first language chosen." class="glyphicon glyphicon-random"></span>
+    <div class="select-div">
+      <span class="fancyArrow"></span>
+      <select name="post[category_id]">
+        <% @languages.each do |language| %>
+          <option value="<%= language %>"><%= language %></option>
+        <% end %>
+      </select>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <h1 class="text-center">Johnny Cash</h1>
+  <div id="venn1" class="center-block text-center">
+  </div>
+
 </div>
 <div style="float:left;padding:20px">
   <table>

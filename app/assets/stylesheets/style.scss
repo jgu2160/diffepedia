@@ -35,6 +35,7 @@ $wiki-green: #CEF2E0;
 .navbar {
   border-bottom: 1px solid white;
   transition: 1s;
+  background: white;
 }
 
 .navbar:hover {
@@ -45,8 +46,8 @@ $wiki-green: #CEF2E0;
 
 a:link, a:visited, a:active, a:focus {
   text-decoration: none;
+  outline: 0;
 }
-
 
 .select-div {
   position: relative;
@@ -126,7 +127,7 @@ select:hover {
   top: 22px;
 }
 
-#submit:hover, #between:hover {
+#submit:hover, #submit:focus, #between:hover {
   color: $wiki-blue;
   transition: .5s;
 }

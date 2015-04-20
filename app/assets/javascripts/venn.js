@@ -7,8 +7,8 @@
             fontSize = null,
             //colours = d3.scale.category20c(),
             colours = d3.scale.linear()
-            .domain([1, 4])
-            .range(["#00a136", "#9933FF"]),
+            .domain([1, 100])
+            .range(["#00a136","#9933FF"]),
             layoutFunction = venn.venn;
 
         function chart(selection) {
@@ -74,7 +74,7 @@
                     .filter(function (d) { return d.sets.length == 1; } )
                     .transition().duration(5000)
                     .delay(function(d, i) { return i / 1.1 * duration; })
-                    .style("fill", function(d) { return colours(label(d).length); })
+                    .style("fill", function(d) { return colours(d.size); })
                     .style("fill-opacity", ".25");
 
                 var enterText = enter.append("text")

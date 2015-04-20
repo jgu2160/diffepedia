@@ -109,10 +109,11 @@ $(document).ready(function() {
       placement: "bottom"
     });
     // simple venn
-    var label1 = "dada"
-    var simple_sets = [ {sets: ['A'], size: 12},
-      {sets: [label1], size: 4},
-    {sets: ['A',label1], size: 2}];
+    var label1 = "En  "
+    var label2 = "Zh  "
+    var simple_sets = [ {sets: [label1], size: 100},
+      {sets: [label2], size: 10},
+    {sets: [label1,label2], size: 5}];
 
     var chart1 = venn.VennDiagram()
 
