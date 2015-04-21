@@ -18,8 +18,8 @@ $wiki-green: #CEF2E0;
 #between {
   top: 17px;
   font-size: 3em;
-  margin-left: 3px;
-  margin-right: 8px;
+  margin-left: 7px;
+  margin-right: 10px;
   transition: .75s;
   /*padding-top: 20px;*/
 }
@@ -116,34 +116,45 @@ select:hover {
 }
 
 #submit {
-  margin-left: -30px;
+  margin-left: -25px;
   margin-right: -25px;
   color: black;
-  font-size: 3.5em;
+  font-size: 3.2em;
   transition: .75s;
 }
 
 #submit > .glyphicon {
-  top: 22px;
+  top: 20px;
 }
 
 #submit:hover, #submit:focus, #between:hover {
   color: $wiki-blue;
   transition: .5s;
+  cursor: pointer;
 }
 
 .form-control {
   border: 1px solid black;
-  width: 572px;
+  width: 585px;
 }
 
 .form-control:focus, .form-control:hover {
   border: 1px solid $wiki-blue;
-  width: 572px;
   transition: .5s;
+  box-shadow: none;
 }
 
-#url-div {
-  margin-left: 35%;
-  margin-right: auto;
+#twitter-login {
+  margin-right: 80px;
+  border: none;
+}
+
+#twitter-login:hover, #twitter-login:focus {
+  background-color: white;
+  outline: 0;
+}
+
+#cu-div {
+  margin-top: 11px;
+  margin-right: 20px;
 }
