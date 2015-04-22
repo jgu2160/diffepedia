@@ -18,6 +18,7 @@ gem 'd3_rails'
 gem 'figaro'
 gem 'bing_translator'
 gem 'unicorn'
+gem 'tf-idf-similarity'
 
 group :development, :test do
   gem 'byebug'
