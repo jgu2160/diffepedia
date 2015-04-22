@@ -135,7 +135,7 @@ select:hover {
 
 .form-control {
   border: 1px solid black;
-  width: 585px;
+  width: 500px;
 }
 
 .form-control:focus, .form-control:hover {
@@ -158,3 +158,12 @@ select:hover {
   margin-top: 10px;
   margin-right: 25px;
 }
+
+input{
+   text-align:center;
+}
+
+#main-div {
+  margin-top: 75px;
+}
+
