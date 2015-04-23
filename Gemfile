@@ -27,4 +27,5 @@ group :development, :test do
   gem 'awesome_print'
   gem 'better_errors'
   gem 'spring'
+  gem 'shoulda-matchers'
 end
