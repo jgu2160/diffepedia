@@ -2,6 +2,7 @@
 @import "bootstrap";
 $wiki-blue: #A7D7F9;
 $wiki-green: #CEF2E0;
+$dark-wiki-green: #52d192;
 
 #nav-title {
   /*font-family: Helvetica Neue, Helvetica, Arimo, Liberation Sans, Lucida Grande, sans-serif.*/
@@ -167,3 +168,9 @@ input{
   margin-top: 75px;
 }
 
+#invalid-url {
+  color: $dark-wiki-green;
+  margin-top: 3px;
+  font-size: 15px;
+  font-weight: bolder;
+}

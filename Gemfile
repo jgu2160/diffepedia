@@ -19,6 +19,7 @@ gem 'figaro'
 gem 'bing_translator'
 gem 'unicorn'
 gem 'tf-idf-similarity'
+gem 'angularjs-rails'
 
 group :development, :test do
   gem 'byebug'

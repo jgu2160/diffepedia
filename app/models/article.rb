@@ -1,7 +1,7 @@
 class Article < ActiveRecord::Base
   has_many :user_articles
   has_many :users, through: :user_articles
-  validates :url, format: { with: /https:\/\/[A-Za-z\-]{2,12}.wikipedia.org\/wiki\/.+/, message: "only valid wikipedia url"  }
+  validates :url, format: { with: /https:\/\/[A-Za-z\-]{2,12}\.wikipedia\.org\/wiki\/.+/, message: "only valid wikipedia url"  }
 end
 
 

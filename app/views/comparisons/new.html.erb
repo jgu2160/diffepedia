@@ -1,8 +1,11 @@
 <div id="main-div">
 
-  <div id="url-div">
-    <%= form_for :comparison, class: "form" do |f| %>
-      <%= f.text_field :url, placeholder: "Please enter a Wikipedia URL", class: "form-control center-block" %>
+  <div id="url-div" ng-app="wiki-form">
+    <%= form_for :comparison, class: "form", html: { name: "form" } do |f| %>
+      <div style="height:40px">
+        <%= f.text_field :url, placeholder: "Please enter a Wikipedia URL", class: "form-control center-block", type: "url", "ng-model": "userURL", "name": "validatedURL", "validate-url": "" %>
+        <p id="invalid-url" class="text-center center-block" ng-show="form.validatedURL.$error.url">Please enter a valid Wikipedia article URL.</p>
+      </div>
     <% end %>
   </div>
 

@@ -15,4 +15,5 @@
 //= require bootstrap-sprockets
 //= require d3
 //= require jquery_ujs
+//= require angular
 //= require_tree .
