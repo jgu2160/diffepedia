@@ -3,6 +3,7 @@
 $wiki-blue: #A7D7F9;
 $wiki-green: #CEF2E0;
 $dark-wiki-green: #52d192;
+$grey: #A6A6A6;
 
 #nav-title {
   /*font-family: Helvetica Neue, Helvetica, Arimo, Liberation Sans, Lucida Grande, sans-serif.*/
@@ -68,6 +69,25 @@ select {
   background: white;
 }
 
+#user-lang-div {
+  position: relative;
+  display: inline-block;
+  height:30px;
+  width: 150px;
+  padding: 2px 10px 2px 2px;
+  outline: none;
+  color: black;
+  border: 1px solid black;
+  border-radius: 4px;
+  text-align: left;
+  transition: .5s;
+  background: white;
+}
+
+#user-lang-div > p {
+  margin-top: 2px;
+  margin-left: 4px;
+}
 
 /* Select arrow styling */
 .select-div .fancyArrow {
@@ -84,10 +104,10 @@ select {
 }
 
 select:-moz-focusring {
-    color: transparent;
-    border: 1px solid $wiki-blue;
-    text-shadow: 0 0 0 black;
-    transition: 0s;
+  color: transparent;
+  border: 1px solid $wiki-blue;
+  text-shadow: 0 0 0 black;
+  transition: 0s;
 }
 
 
@@ -134,12 +154,87 @@ select:hover {
   cursor: pointer;
 }
 
-.form-control {
+#url {
   border: 1px solid black;
-  width: 500px;
+  width: 368px;
 }
 
-.form-control:focus, .form-control:hover {
+#url:focus, #url:hover {
+  border: 1px solid $wiki-blue;
+}
+
+
+/* Select arrow styling */
+.select-div .fancyArrow {
+  width: 29px;
+  height: 28px;
+  position: absolute;
+  display: inline-block;
+  top: 1px;
+  right: .8px;
+  background: image-url("black-down.svg") right / 100%  no-repeat white;
+  border-radius: 3px;
+  pointer-events: none;
+
+}
+
+select:-moz-focusring {
+  color: transparent;
+  border: 1px solid $wiki-blue;
+  text-shadow: 0 0 0 black;
+  transition: 0s;
+}
+
+
+/*target Internet Explorer 9 and Internet Explorer 10:*/
+@media screen and (min-width:0\0) {
+  .select-div .fancyArrow
+  {
+    display:none;
+  }
+}
+
+select:hover {
+  border: 1px solid $wiki-blue;
+}
+
+.venntooltip {
+  position: absolute;
+  text-align: center;
+  width: 128px;
+  height: 16px;
+  background: #333;
+  color: #ddd;
+  padding: 2px;
+  border: 0px;
+  border-radius: 8px;
+  opacity: 0;
+}
+
+#submit {
+  margin-left: -25px;
+  margin-right: -25px;
+  color: black;
+  font-size: 3.2em;
+  transition: .75s;
+}
+
+#submit > .glyphicon {
+  top: 20px;
+}
+
+#submit:hover, #submit:focus, #between:hover {
+  color: $wiki-blue;
+  transition: .5s;
+  cursor: pointer;
+}
+
+#url {
+  border: 1px solid black;
+  width: 368px;
+}
+
+#url:focus, #url:hover {
   border: 1px solid $wiki-blue;
   transition: .5s;
   box-shadow: none;
@@ -161,7 +256,7 @@ select:hover {
 }
 
 input{
-   text-align:center;
+  text-align:center;
 }
 
 #main-div {
@@ -170,7 +265,6 @@ input{
 
 #invalid-url {
   color: $dark-wiki-green;
-  margin-top: 3px;
   font-size: 15px;
   font-weight: bolder;
 }

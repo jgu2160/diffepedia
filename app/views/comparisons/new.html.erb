@@ -1,47 +1,47 @@
-<div id="main-div">
+<div id="main-div" ng-app="wiki-form" ng-controller="LangController">
 
-  <div id="url-div" ng-app="wiki-form">
+  <div id="url-div">
     <%= form_for :comparison, class: "form", html: { name: "form" } do |f| %>
       <div style="height:40px">
-        <%= f.text_field :url, placeholder: "Please enter a Wikipedia URL", class: "form-control center-block", type: "url", "ng-model": "userURL", "name": "validatedURL", "validate-url": "" %>
-        <p id="invalid-url" class="text-center center-block" ng-show="form.validatedURL.$error.url">Please enter a valid Wikipedia article URL.</p>
+        <%= f.text_field :url, id: "url", placeholder: "Please enter a Wikipedia URL", class: "form-control center-block", type: "url", "ng-model": "userURL.url", "name": "validatedURL", "validate-url": "", "ng-change": "givenLang()" %>
+        <p id="invalid-url" class="text-center center-block" ng-show="form.validatedURL.$error.url">
+          Please enter a valid Wikipedia article URL.
+        </p>
       </div>
-    <% end %>
-  </div>
-
-  <div class="center-block text-center">
-    <div class="select-div">
-      <span class="fancyArrow"></span>
-      <select name="post[category_id]">
-        <% @languages.each do |language| %>
-          <option value="<%= language %>"><%= language %></option>
-        <% end %>
-      </select>
     </div>
 
-    &nbsp;
-    &nbsp;
-    &nbsp;
-    &nbsp;
+    <div class="center-block text-center">
 
-    <%= link_to root_path, id: "submit", class: "text-center" do %>
-      <span class="glyphicon glyphicon-refresh text-center"></span>
-    <% end %>
+      <div id="user-lang-div">
+        <p>
+          {{ lang.name }}
+        </p>
+      </div>
 
-    &nbsp;
-    &nbsp;
-    &nbsp;
+      &nbsp;
+      &nbsp;
+      &nbsp;
+      &nbsp;
 
-    <div class="select-div">
-      <span class="fancyArrow"></span>
-      <select name="post[category_id]">
-        <% @languages.each do |language| %>
-          <option value="<%= language %>"><%= language %></option>
-        <% end %>
-      </select>
+      <%= link_to root_path, id: "submit", class: "text-center" do %>
+        <span class="glyphicon glyphicon-refresh text-center"></span>
+      <% end %>
+
+      &nbsp;
+      &nbsp;
+      &nbsp;
+
+      <div class="select-div">
+        <span class="fancyArrow"></span>
+        <select name="post[category_id]">
+          <% @languages.each do |language| %>
+            <option value="<%= language %>"><%= language %></option>
+          <% end %>
+        </select>
+      </div>
     </div>
-  </div>
 
+  <% end %>
 </div>
 
 <%#<%= render "partials/venn" %>

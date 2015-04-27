@@ -1,19 +1,36 @@
-$(document).ready(function() {
-  if(window.location.pathname === '/') {
-    console.log("hi");
-
-
-
-  };
-});
-
 //get languages url
 //http://en.wikipedia.org/w/api.php?action=query&format=json&titles=Cloud&prop=langlinks&lllimit=500
 //get html version of article (this is the cleanest it can get
 //http://simple.wikipedia.org/w/api.php?format=json&action=query&titles=Colorado&prop=extracts
 
 if(window.location.pathname === '/') {
+
   var app = angular.module('wiki-form', []);
+  var defaultLang = "English"
+  var LANG_REGEXP = /https:\/\/[a-zA-Z\-]{2,12}/
+
+  app.controller("LangController", function($scope) {
+
+    $scope.userURL = {
+      url: "",
+    };
+
+    $scope.lang = {
+      name: defaultLang
+    }
+
+    $scope.givenLang = function() {
+      match = LANG_REGEXP.exec($scope.userURL.url);
+      if (match === null) {
+        $scope.lang.name = defaultLang
+      } else {
+        abbrLang = match[0].slice(8)
+        $scope.lang.name = LANG_HASH[abbrLang]
+      }
+    }
+
+  });
+
 
   app.directive('validateUrl', function() {
     var WIKI_REGEXP = /https:\/\/[a-zA-Z\-]{2,12}\.wikipedia\.org\/wiki\/.+/;
