@@ -54,7 +54,7 @@ if(window.location.pathname === '/') {
     function getArticle(abbrLang, article) {
       getURL = "http://" + abbrLang + ".wikipedia.org/w/api.php?action=query&format=json&titles=" + article + "&prop=langlinks&lllimit=500&callback=jsonp_callback()";
       $http.jsonp(getURL);
-      $timeout($scope.setLanguages, 200);
+      $timeout($scope.setLanguages, 300);
     }
 
     $scope.setLanguages = function() {
