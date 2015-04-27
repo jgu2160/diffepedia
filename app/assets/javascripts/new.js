@@ -8,6 +8,7 @@ if(window.location.pathname === '/') {
   var app = angular.module('wiki-form', []);
   var defaultLang = "English"
   var LANG_REGEXP = /https:\/\/[a-zA-Z\-]{2,12}/
+  var WIKI_REGEXP = /https:\/\/[a-zA-Z\-]{2,12}\.wikipedia\.org\/wiki\/.+/;
 
   app.controller("LangController", function($scope) {
 
@@ -33,7 +34,6 @@ if(window.location.pathname === '/') {
 
 
   app.directive('validateUrl', function() {
-    var WIKI_REGEXP = /https:\/\/[a-zA-Z\-]{2,12}\.wikipedia\.org\/wiki\/.+/;
 
     return {
       require: 'ngModel',

@@ -70,6 +70,7 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     columnize (0.9.0)
+    crass (1.0.2)
     d3_rails (3.5.5)
       railties (>= 3.1.0)
     debug_inspector (0.0.2)
@@ -107,6 +108,8 @@ GEM
     multi_json (1.11.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    nokogumbo (1.4.1)
+      nokogiri
     nori (2.5.0)
     oauth (0.4.7)
     omniauth (1.2.2)
@@ -171,6 +174,10 @@ GEM
       rspec-mocks (~> 3.2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
+    sanitize (4.0.0)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.4.4)
+      nokogumbo (= 1.4.1)
     sass (3.4.13)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -246,6 +253,7 @@ DEPENDENCIES
   rails (= 4.2.1)
   rails_12factor
   rspec-rails
+  sanitize
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   shoulda-matchers
