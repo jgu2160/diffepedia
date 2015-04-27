@@ -6,11 +6,27 @@
 if(window.location.pathname === '/') {
 
   var app = angular.module('wiki-form', []);
-  var defaultLang = "English"
-  var LANG_REGEXP = /https:\/\/[a-zA-Z\-]{2,12}/
+  var defaultLang = "English";
+  var LANG_REGEXP = /https:\/\/[a-zA-Z\-]{2,12}/;
+  var ARTICLE_REGEXP = /wiki\/.+/;
   var WIKI_REGEXP = /https:\/\/[a-zA-Z\-]{2,12}\.wikipedia\.org\/wiki\/.+/;
+  var languages = [
+      "English",
+      "Swedish",
+      "Dutch",
+      "German",
+      "French",
+      "Waray-Waray",
+      "Russian",
+      "Cebuano",
+      "Italian",
+      "Spanish",
+      "Vietnamese",
+      "Polish",
+      "Jeffrey"
+    ]
 
-  app.controller("LangController", function($scope) {
+  app.controller("LangController", function($scope, $http, $timeout) {
 
     $scope.userURL = {
       url: "",
@@ -20,18 +36,49 @@ if(window.location.pathname === '/') {
       name: defaultLang
     }
 
-    $scope.givenLang = function() {
-      match = LANG_REGEXP.exec($scope.userURL.url);
-      if (match === null) {
-        $scope.lang.name = defaultLang
+    $scope.languages = languages;
+
+    $scope.changeLangOptions = function() {
+      var langMatch = LANG_REGEXP.exec($scope.userURL.url);
+      var articleMatch = ARTICLE_REGEXP.exec($scope.userURL.url);
+      if (langMatch === null) {
+        $scope.lang.name = defaultLang;
       } else {
-        abbrLang = match[0].slice(8)
-        $scope.lang.name = LANG_HASH[abbrLang]
-      }
+        abbrLang = langMatch[0].slice(8);
+        article = articleMatch[0].slice(5);
+        getArticle(abbrLang, article);
+        $scope.lang.name = LANG_HASH[abbrLang];
+      };
     }
 
+    function getArticle(abbrLang, article) {
+      getURL = "http://" + abbrLang + ".wikipedia.org/w/api.php?action=query&format=json&titles=" + article + "&prop=langlinks&lllimit=500&callback=jsonp_callback()";
+      $http.jsonp(getURL);
+      $timeout($scope.setLanguages, 200);
+    }
+
+    $scope.setLanguages = function() {
+      $scope.languages = languages;
+    }
   });
 
+  var callbackData;
+  function jsonp_callback(data) {
+    unparsedLangArray = data.query.pages
+    key = Object.keys(unparsedLangArray)[0]
+    toMap = unparsedLangArray[key].langlinks
+    mapLangs(toMap);
+    callbackData = data;
+  }
+
+  function mapLangs(toMap) {
+    rawAbbr = toMap.map(function(elem) {
+      return elem.lang
+    });
+    languages = rawAbbr.map(function(elem) {
+        return LANG_HASH[elem]
+    })
+  }
 
   app.directive('validateUrl', function() {
 

@@ -3,7 +3,7 @@
   <div id="url-div">
     <%= form_for :comparison, class: "form", html: { name: "form" } do |f| %>
       <div style="height:40px">
-        <%= f.text_field :url, id: "url", placeholder: "Please enter a Wikipedia URL", class: "form-control center-block", type: "url", "ng-model": "userURL.url", "name": "validatedURL", "validate-url": "", "ng-change": "givenLang()" %>
+        <%= f.text_field :url, id: "url", placeholder: "Please enter a Wikipedia URL", class: "form-control center-block", type: "url", "ng-model": "userURL.url", "name": "validatedURL", "validate-url": "", "ng-change": "changeLangOptions()" %>
         <p id="invalid-url" class="text-center center-block" ng-show="form.validatedURL.$error.url">
           Please enter a valid Wikipedia article URL.
         </p>
@@ -33,10 +33,8 @@
 
       <div class="select-div">
         <span class="fancyArrow"></span>
-        <select name="post[category_id]">
-          <% @languages.each do |language| %>
-            <option value="<%= language %>"><%= language %></option>
-          <% end %>
+        <select>
+          <option ng-repeat="language in languages" value="{{language}}">{{ language }}</option>
         </select>
       </div>
     </div>
