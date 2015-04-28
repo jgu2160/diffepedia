@@ -82,6 +82,11 @@ select {
   text-align: left;
   transition: .5s;
   background: white;
+  margin-right: 40px;
+}
+
+#select-lang {
+  margin-left: 30px;
 }
 
 #user-lang-div > p {
@@ -152,11 +157,12 @@ select:hover {
   color: $wiki-blue;
   transition: .5s;
   cursor: pointer;
+  text-decoration: none;
 }
 
 #url {
   border: 1px solid black;
-  width: 450px;
+  width: 465px;
 }
 
 #url:focus, #url:hover {

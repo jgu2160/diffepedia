@@ -10,21 +10,7 @@ if(window.location.pathname === '/') {
   var LANG_REGEXP = /https:\/\/[a-zA-Z\-]{2,12}/;
   var ARTICLE_REGEXP = /wiki\/.+/;
   var WIKI_REGEXP = /https:\/\/[a-zA-Z\-]{2,12}\.wikipedia\.org\/wiki\/.+/;
-  var languages = [
-      "English",
-      "Swedish",
-      "Dutch",
-      "German",
-      "French",
-      "Waray-Waray",
-      "Russian",
-      "Cebuano",
-      "Italian",
-      "Spanish",
-      "Vietnamese",
-      "Polish",
-      "Jeffrey"
-    ]
+  var languages = ["Chinese"]
 
   app.controller("LangController", function($scope, $http, $timeout) {
 
@@ -46,19 +32,25 @@ if(window.location.pathname === '/') {
       } else {
         abbrLang = langMatch[0].slice(8);
         article = articleMatch[0].slice(5);
-        getArticle(abbrLang, article);
         $scope.lang.name = LANG_HASH[abbrLang];
+        getArticle(abbrLang, article);
       };
     }
 
     function getArticle(abbrLang, article) {
-      getURL = "http://" + abbrLang + ".wikipedia.org/w/api.php?action=query&format=json&titles=" + article + "&prop=langlinks&lllimit=500&callback=jsonp_callback()";
-      $http.jsonp(getURL);
-      $timeout($scope.setLanguages, 300);
-    }
-
-    $scope.setLanguages = function() {
-      $scope.languages = languages;
+      getURL = "http://" + abbrLang + ".wikipedia.org/w/api.php?action=query&format=json&titles=" + article + "&prop=langlinks&lllimit=500&callback=JSON_CALLBACK";
+      $http.jsonp(getURL).success(function(data, status, headers, config) {
+        unparsedLangArray = data.query.pages
+        key = Object.keys(unparsedLangArray)[0]
+        toMap = unparsedLangArray[key].langlinks
+        mapLangs(toMap);
+        $scope.languages = languages;
+        console.log(toMap);
+        console.log(languages);
+        console.log("language changed");
+      }).
+        error(function(data, status, headers, config) {
+      });
     }
   });
 
@@ -75,8 +67,9 @@ if(window.location.pathname === '/') {
     rawAbbr = toMap.map(function(elem) {
       return elem.lang
     });
+
     languages = rawAbbr.map(function(elem) {
-        return LANG_HASH[elem]
+      return LANG_HASH[elem]
     })
   }
 
@@ -262,6 +255,7 @@ if(window.location.pathname === '/') {
       "zea":	"Zeelandic",
       "vep":	"Vepsian",
       "crh":	"Crimean Tatar",
+      "cr": "Cree",
       "zh-classical":	"Classical Chinese",
       "frr":	"North Frisian",
       "eml":	"Emilian-Romagnol",
