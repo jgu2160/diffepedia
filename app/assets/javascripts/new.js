@@ -17,17 +17,23 @@ if(window.location.pathname === '/') {
 
   app.controller("LangController", function($scope, $http, $timeout) {
 
-    $scope.list = []
     $scope.submit = function() {
       if ($scope.userURL) {
-        lang1URL = "http://" + abbrLang + ".wikipedia.org/w/api.php?format=json&action=query&titles=" + article + "&prop=extracts"
-        lang2URL = "http://simple.wikipedia.org/w/api.php?format=json&action=query&titles=Colorado&prop=extracts"
-        $scope.list.push($scope.userURL);
-        console.log($scope.userURL);
+        lang1URL = wikiURL(abbrLang, article);
+
+        lang2Abbr = (_.invert(LANG_HASH))[$scope.selectedLang];
+        lang2Article = langArticle[lang2Abbr];
+        lang2URL = wikiURL(lang2Abbr, lang2Article);
+
         console.log(lang1URL);
+        console.log(lang2URL);
         //post to analysis engine here
       }
     };
+
+    function wikiURL(abbr, article) {
+        return "http://" + abbr + ".wikipedia.org/w/api.php?format=json&action=query&titles=" + article + "&prop=extracts";
+    }
 
     $scope.update = function() {
       if ($scope.userURL) {
@@ -74,21 +80,14 @@ if(window.location.pathname === '/') {
     }
   });
 
-  var callbackData;
-  function jsonp_callback(data) {
-    unparsedLangArray = data.query.pages
-    key = Object.keys(unparsedLangArray)[0]
-    toMap = unparsedLangArray[key].langlinks
-    mapLangs(toMap);
-    callbackData = data;
-  }
+  var langArticle = {};
 
   function mapLangs(toMap) {
-    rawAbbr = toMap.map(function(elem) {
-      return elem.lang
+    toMap.forEach(function(elem) {
+      langArticle[elem.lang] = elem["*"];
     });
 
-    languages = rawAbbr.map(function(elem) {
+    languages = Object.keys(langArticle).map(function(elem) {
       return LANG_HASH[elem]
     })
   }

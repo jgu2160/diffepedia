@@ -21,6 +21,7 @@ gem 'unicorn'
 gem 'tf-idf-similarity'
 gem 'angularjs-rails'
 gem 'sanitize'
+gem 'underscore-rails'
 
 group :development, :test do
   gem 'byebug'
