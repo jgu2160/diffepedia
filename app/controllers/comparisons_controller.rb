@@ -1,18 +1,15 @@
 class ComparisonsController < ApplicationController
   def new
-    @languages = [
-      "English",
-      "Swedish",
-      "Dutch",
-      "German",
-      "French",
-      "Waray-Waray",
-      "Russian",
-      "Cebuano",
-      "Italian",
-      "Spanish",
-      "Vietnamese",
-      "Polish"
-    ]
+  end
+
+  def create
+    #code to create comparison metrics here
+    render json: comparison_params
+  end
+
+  private
+
+  def comparison_params
+    params.require(:comparison).permit(:article_1, :article_2)
   end
 end
