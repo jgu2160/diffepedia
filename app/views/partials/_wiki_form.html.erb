@@ -24,8 +24,8 @@
 
       <div id="select-lang" class="select-div">
         <span class="fancyArrow"></span>
-        <select>
-          <option ng-repeat="language in languages" value="{{language}}">{{ language }}</option>
+        <select ng-model="selectedLang" ng-change="update()">
+          <option ng-repeat="language in languages">{{ language }}</option>
         </select>
       </div>
     </div>

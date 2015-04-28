@@ -11,12 +11,35 @@ if(window.location.pathname === '/') {
   var ARTICLE_REGEXP = /wiki\/.+/;
   var WIKI_REGEXP = /https:\/\/[a-zA-Z\-]{2,12}\.wikipedia\.org\/wiki\/.+/;
   var languages = ["Chinese"]
+  var abbrLang;
+  var article;
+
 
   app.controller("LangController", function($scope, $http, $timeout) {
+
+    $scope.list = []
+    $scope.submit = function() {
+      if ($scope.userURL) {
+        lang1URL = "http://" + abbrLang + ".wikipedia.org/w/api.php?format=json&action=query&titles=" + article + "&prop=extracts"
+        lang2URL = "http://simple.wikipedia.org/w/api.php?format=json&action=query&titles=Colorado&prop=extracts"
+        $scope.list.push($scope.userURL);
+        console.log($scope.userURL);
+        console.log(lang1URL);
+        //post to analysis engine here
+      }
+    };
+
+    $scope.update = function() {
+      if ($scope.userURL) {
+        console.log($scope.selectedLang);
+      }
+    };
 
     $scope.userURL = {
       url: "",
     };
+
+    $scope.selectedLang = "Chinese"
 
     $scope.lang = {
       name: defaultLang
@@ -25,8 +48,8 @@ if(window.location.pathname === '/') {
     $scope.languages = languages;
 
     $scope.changeLangOptions = function() {
-      var langMatch = LANG_REGEXP.exec($scope.userURL.url);
-      var articleMatch = ARTICLE_REGEXP.exec($scope.userURL.url);
+      langMatch = LANG_REGEXP.exec($scope.userURL.url);
+      articleMatch = ARTICLE_REGEXP.exec($scope.userURL.url);
       if (langMatch === null) {
         $scope.lang.name = defaultLang;
       } else {
