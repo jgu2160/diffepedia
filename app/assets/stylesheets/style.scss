@@ -141,14 +141,6 @@ select:hover {
   opacity: 0;
 }
 
-#submit {
-  margin-left: -25px;
-  margin-right: -25px;
-  color: black;
-  font-size: 3.2em;
-  transition: .75s;
-}
-
 #submit > .glyphicon {
   top: 20px;
 }
@@ -158,17 +150,18 @@ select:hover {
   transition: .5s;
   cursor: pointer;
   text-decoration: none;
+  border: none;
+  box-shadow: 0px 0px 1px transparent;
 }
 
 #url {
   border: 1px solid black;
-  width: 465px;
+  width: 472px;
 }
 
 #url:focus, #url:hover {
   border: 1px solid $wiki-blue;
 }
-
 
 /* Select arrow styling */
 .select-div .fancyArrow {
@@ -177,7 +170,7 @@ select:hover {
   position: absolute;
   display: inline-block;
   top: 1px;
-  right: .8px;
+  right: .9px;
   background: image-url("black-down.svg") right / 100%  no-repeat white;
   border-radius: 3px;
   pointer-events: none;
@@ -218,7 +211,13 @@ select:hover {
 }
 
 #submit {
-  margin-left: -25px;
+  padding-left: 10px;
+  padding-right: 12px;
+  background-color: transparent;
+  text-decoration: none;
+  cursor: pointer;
+  border:none;
+  margin-left: -30px;
   margin-right: -25px;
   color: black;
   font-size: 3.2em;
@@ -229,10 +228,12 @@ select:hover {
   top: 20px;
 }
 
-#submit:hover, #submit:focus, #between:hover {
+#submit:hover, #submit:focus, #between:hover, #submit:active {
   color: $wiki-blue;
   transition: .5s;
   cursor: pointer;
+  padding-left: 10px;
+  padding-right: 12px;
 }
 
 #url:focus, #url:hover {
@@ -254,10 +255,6 @@ select:hover {
 #cu-div {
   margin-top: 10px;
   margin-right: 25px;
-}
-
-input{
-  text-align:center;
 }
 
 #main-div {

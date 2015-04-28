@@ -45,9 +45,6 @@ if(window.location.pathname === '/') {
         toMap = unparsedLangArray[key].langlinks
         mapLangs(toMap);
         $scope.languages = languages;
-        console.log(toMap);
-        console.log(languages);
-        console.log("language changed");
       }).
         error(function(data, status, headers, config) {
       });
