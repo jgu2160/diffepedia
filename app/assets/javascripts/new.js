@@ -19,20 +19,33 @@ if(window.location.pathname === '/') {
 
     $scope.submit = function() {
       if ($scope.userURL) {
-        lang1URL = wikiURL(abbrLang, article);
-
         lang2Abbr = (_.invert(LANG_HASH))[$scope.selectedLang];
-        lang2Article = langArticle[lang2Abbr];
-        lang2URL = wikiURL(lang2Abbr, lang2Article);
+        if (LANG_HASH[abbrLang] === undefined || LANG_HASH[lang2Abbr] === "undefined") {
+          $scope.invalidCombination = true;
+        } else {
 
-        console.log(lang1URL);
-        console.log(lang2URL);
-        //post to analysis engine here
+          lang2Article = langArticle[lang2Abbr];
+          lang1URL = wikiURL(abbrLang, article);
+          lang2URL = wikiURL(lang2Abbr, lang2Article);
+
+          console.log(lang1URL);
+          console.log(lang2URL);
+
+          $http.jsonp(lang1URL).success(function(data, status, headers, config) {
+            parsedArray = parseWikiData(data);
+            console.log(parsedArray);
+          }).
+            error(function(data, status, headers, config) {
+          });
+
+
+          //post to analysis engine here
+        }
       }
     };
 
     function wikiURL(abbr, article) {
-        return "http://" + abbr + ".wikipedia.org/w/api.php?format=json&action=query&titles=" + article + "&prop=extracts";
+      return "http://" + abbr + ".wikipedia.org/w/api.php?format=json&action=query&titles=" + article + "&prop=extracts&callback=JSON_CALLBACK";
     }
 
     $scope.update = function() {
@@ -56,6 +69,7 @@ if(window.location.pathname === '/') {
     $scope.invalidCombination = false;
 
     $scope.changeLangOptions = function() {
+      $scope.invalidCombination = false;
       langMatch = LANG_REGEXP.exec($scope.userURL.url);
       articleMatch = ARTICLE_REGEXP.exec($scope.userURL.url);
       if (langMatch === null) {
@@ -64,28 +78,46 @@ if(window.location.pathname === '/') {
         abbrLang = langMatch[0].slice(8);
         article = articleMatch[0].slice(5);
         $scope.lang.name = LANG_HASH[abbrLang];
-        getArticle(abbrLang, article);
+        if (LANG_HASH[abbrLang] === undefined) {
+          $scope.invalidCombination = true;
+          $scope.lang.name = defaultLang;
+        } else {
+          getArticle(abbrLang, article);
+        }
       };
     }
 
     function getArticle(abbrLang, article) {
       getURL = "http://" + abbrLang + ".wikipedia.org/w/api.php?action=query&format=json&titles=" + article + "&prop=langlinks&lllimit=500&callback=JSON_CALLBACK";
       $http.jsonp(getURL).success(function(data, status, headers, config) {
-        unparsedLangArray = data.query.pages
-        key = Object.keys(unparsedLangArray)[0]
-        toMap = unparsedLangArray[key].langlinks
-        $scope.languages = [];
-        mapLangs(toMap);
-        $scope.languages = languages;
+        parsedArray = parseWikiData(data)
+        if (missingPage(data)) {
+          $scope.invalidCombination = true;
+        } else {
+          toMap = parsedArray.langlinks
+          $scope.languages = [];
+          mapLangs(toMap);
+          $scope.languages = languages;
+        }
       }).
         error(function(data, status, headers, config) {
       });
     }
-    function resetLanguages() {
-    }
+
   });
 
   var langArticle = {};
+
+  function parseWikiData(data) {
+    parsedWikiArray = data.query.pages
+    key = Object.keys(parsedWikiArray)[0]
+    return parsedWikiArray[key]
+  }
+
+  function missingPage(data) {
+    if (typeof data.query.pages["-1"] != "undefined") {
+      return true; }
+  }
 
   function mapLangs(toMap) {
     toMap.forEach(function(elem) {
@@ -123,98 +155,98 @@ if(window.location.pathname === '/') {
 
   var BING_HASH =
     {
-"ar":	"Arabic",
-"bs-Latn":	"Bosnian",
-"bg":	"Bulgarian",
-"ca":	"Catalan",
-"zh-CHT":	"Chinese",
-"hr":	"Croatian",
-"cs":	"Czech",
-"da":	"Danish",
-"nl":	"Dutch",
-"en":	"English",
-"et":	"Estonian",
-"fi":	"Finnish",
-"fr":	"French",
-"de":	"German",
-"el":	"Greek",
-"ht":	"Haitian",
-"he":	"Hebrew",
-"hi":	"Hindi",
-"hu":	"Hungarian",
-"id":	"Indonesian",
-"it":	"Italian",
-"ja":	"Japanese",
-"ko":	"Korean",
-"lv":	"Latvian",
-"lt":	"Lithuanian",
-"ms":	"Malay",
-"mt":	"Maltese",
-"no":	"Norwegian",
-"fa":	"Persian",
-"pl":	"Polish",
-"pt":	"Portuguese",
-"ro":	"Romanian",
-"ru":	"Russian",
-"sr-Cyrl":	"Serbian",
-"sk":	"Slovak",
-"sl":	"Slovenian",
-"es":	"Spanish",
-"sv":	"Swedish",
-"th":	"Thai",
-"tr":	"Turkish",
-"uk":	"Ukrainian",
-"ur":	"Urdu",
-"vi":	"Vietnamese",
-"cy":	"Welsh"
+    "ar":	"Arabic",
+    "bs-Latn":	"Bosnian",
+    "bg":	"Bulgarian",
+    "ca":	"Catalan",
+    "zh-CHT":	"Chinese",
+    "hr":	"Croatian",
+    "cs":	"Czech",
+    "da":	"Danish",
+    "nl":	"Dutch",
+    "en":	"English",
+    "et":	"Estonian",
+    "fi":	"Finnish",
+    "fr":	"French",
+    "de":	"German",
+    "el":	"Greek",
+    "ht":	"Haitian",
+    "he":	"Hebrew",
+    "hi":	"Hindi",
+    "hu":	"Hungarian",
+    "id":	"Indonesian",
+    "it":	"Italian",
+    "ja":	"Japanese",
+    "ko":	"Korean",
+    "lv":	"Latvian",
+    "lt":	"Lithuanian",
+    "ms":	"Malay",
+    "mt":	"Maltese",
+    "no":	"Norwegian",
+    "fa":	"Persian",
+    "pl":	"Polish",
+    "pt":	"Portuguese",
+    "ro":	"Romanian",
+    "ru":	"Russian",
+    "sr-Cyrl":	"Serbian",
+    "sk":	"Slovak",
+    "sl":	"Slovenian",
+    "es":	"Spanish",
+    "sv":	"Swedish",
+    "th":	"Thai",
+    "tr":	"Turkish",
+    "uk":	"Ukrainian",
+    "ur":	"Urdu",
+    "vi":	"Vietnamese",
+    "cy":	"Welsh"
   }
 
   var LANG_HASH =
     {
-       "en":  "English",
-      "sv": "Swedish",
-      "nl": "Dutch",
-      "de": "German",
-      "fr": "French",
-      "ru": "Russian",
-      "it": "Italian",
-      "es": "Spanish",
-      "vi": "Vietnamese",
-      "pl": "Polish",
-      "ja": "Japanese",
-      "pt": "Portuguese",
-      "zh": "Chinese",
-      "uk": "Ukrainian",
-      "ca": "Catalan",
-      "fa": "Persian",
-      "no": "Norwegian",
-      "fi": "Finnish",
-      "id": "Indonesian",
-      "ar": "Arabic",
-      "cs": "Czech",
-      "sr": "Serbian",
-      "ko": "Korean",
-      "ro": "Romanian",
-      "hu": "Hungarian",
-      "ms": "Malay",
-      "tr": "Turkish",
-      "sk": "Slovak",
-      "da": "Danish",
-      "bg": "Bulgarian",
-      "lt": "Lithuanian",
-      "he": "Hebrew",
-      "hr": "Croatian",
-      "sl": "Slovenian",
-      "et": "Estonian",
-      "nn": "Norwegian (Nynorsk)",
-      "simple": "Simple English",
-      "el": "Greek",
-      "hi": "Hindi",
-      "th": "Thai",
-      "ur": "Urdu",
-      "lv": "Latvian",
-      "bs": "Bosnian",
-      "ht": "Haitian",
-      "mt": "Maltese"
-     };
+    "en":  "English",
+    "sv": "Swedish",
+    "nl": "Dutch",
+    "de": "German",
+    "fr": "French",
+    "ru": "Russian",
+    "it": "Italian",
+    "es": "Spanish",
+    "vi": "Vietnamese",
+    "pl": "Polish",
+    "ja": "Japanese",
+    "pt": "Portuguese",
+    "zh": "Chinese",
+    "uk": "Ukrainian",
+    "ca": "Catalan",
+    "fa": "Persian",
+    "no": "Norwegian",
+    "fi": "Finnish",
+    "id": "Indonesian",
+    "ar": "Arabic",
+    "cs": "Czech",
+    "sr": "Serbian",
+    "ko": "Korean",
+    "ro": "Romanian",
+    "hu": "Hungarian",
+    "ms": "Malay",
+    "tr": "Turkish",
+    "sk": "Slovak",
+    "da": "Danish",
+    "bg": "Bulgarian",
+    "lt": "Lithuanian",
+    "he": "Hebrew",
+    "hr": "Croatian",
+    "sl": "Slovenian",
+    "et": "Estonian",
+    "nn": "Norwegian (Nynorsk)",
+    "simple": "Simple English",
+    "el": "Greek",
+    "hi": "Hindi",
+    "th": "Thai",
+    "ur": "Urdu",
+    "lv": "Latvian",
+    "bs": "Bosnian",
+    "ht": "Haitian",
+    "mt": "Maltese"
+  };
 };
