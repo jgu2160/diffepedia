@@ -38,6 +38,13 @@ if(window.location.pathname === '/') {
             error(function(data, status, headers, config) {
           });
 
+          $http.jsonp(lang2URL).success(function(data, status, headers, config) {
+            parsedArray = parseWikiData(data);
+            console.log(parsedArray);
+          }).
+            error(function(data, status, headers, config) {
+          });
+
 
           //post to analysis engine here
         }
