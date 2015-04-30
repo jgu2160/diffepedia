@@ -23,12 +23,18 @@ if(window.location.pathname === '/') {
 
   app.controller("LangController", function($scope, $http, $timeout, WikiService, BackendService) {
 
+    $scope.loading = false;
+    $scope.showLang1 = false;
+    $scope.showLang2 = false;
+
     $scope.submit = function() {
       if ($scope.userURL) {
         lang2Abbr = (_.invert(LANG_HASH))[$scope.selectedLang];
         if (LANG_HASH[lang1Abbr] === undefined || LANG_HASH[lang2Abbr] === "undefined") {
           $scope.invalidCombination = true;
         } else {
+
+          $scope.loading = true;
 
           lang2Article = langArticle[lang2Abbr];
           lang1URL = wikiURL(lang1Abbr, article);
@@ -52,6 +58,7 @@ if(window.location.pathname === '/') {
               console.log(lang2);
               BackendService.getComparison(extract1, extract2, lang1, lang2)
               .then(function(success) {
+                $scope.loading = false;
                 $scope.lang1Text = success.data.s1;
                 $scope.lang2Text = success.data.s2;
                 $scope.showLang1 = true;
@@ -63,9 +70,6 @@ if(window.location.pathname === '/') {
         }
       }
     };
-
-    function compareWikis() {
-    }
 
     function wikiURL(abbr, article) {
       return "http://" + abbr + ".wikipedia.org/w/api.php?format=json&action=query&titles=" + article + "&prop=extracts&callback=JSON_CALLBACK";

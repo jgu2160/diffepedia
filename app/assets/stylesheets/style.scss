@@ -1,6 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 $wiki-blue: #A7D7F9;
+$dark-wiki-blue: #82c6f6;
 $wiki-green: #CEF2E0;
 $dark-wiki-green: #52d192;
 $grey: #A6A6A6;
@@ -250,6 +251,10 @@ select:hover {
 #twitter-login:hover, #twitter-login:focus {
   background-color: white;
   outline: 0;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0px 0px 1px transparent;
 }
 
 #cu-div {
@@ -262,7 +267,7 @@ select:hover {
 }
 
 #invalid-url, #invalid-combination {
-  color: $dark-wiki-green;
+  color: $dark-wiki-blue;
   font-size: 15px;
   font-weight: bolder;
   transition: 2s;
@@ -285,4 +290,55 @@ select:hover {
 
 .article {
   text-align: left;
+}
+
+.spinner {
+  margin: 105px auto;
+  width: 40px;
+  height: 10px;
+  font-size: 10px;
+  > div {
+    height: 100%;
+    width: 100%;
+    display: block;
+    margin-bottom: 0.6em;
+    -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+    animation: stretchdelay 1.2s infinite ease-in-out;
+  }
+  .rect2 {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+  }
+  .rect3 {
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s;
+  }
+}
+
+@-webkit-keyframes stretchdelay {
+  0%, 40%, 100% {
+    -webkit-transform: scaleX(0.8);
+    background-color: $wiki-green;
+    box-shadow: 0 0 0 rgba(10, 10, 10, 0.1);
+  }
+  20% {
+    -webkit-transform: scaleX(1);
+    background-color: $wiki-green;
+    box-shadow: 0 5px 6px rgba(10, 10, 10, 0.4);
+  }
+}
+
+@keyframes stretchdelay {
+  0%, 40%, 100% {
+    background-color: $wiki-blue;
+    transform: scaleX(0.8);
+    -webkit-transform: scaleX(0.8);
+    box-shadow: 0 0 0 rgba(10, 10, 10, 0.1);
+  }
+  20% {
+    background-color: $dark-wiki-blue;
+    transform: scaleY(1);
+    -webkit-transform: scaleX(1);
+    box-shadow: 0 5px 6px rgba(10, 10, 10, 0.4);
+  }
 }
