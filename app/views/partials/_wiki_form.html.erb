@@ -6,12 +6,16 @@
 
         <input id="url" placeholder="Please enter a Wikipedia URL" class="form-control center-block text-center" type="url" ng-model="userURL.url" name="validatedURL" validate-url ng-change="changeLangOptions()"></input>
 
-        <p id="invalid-url" class="text-center center-block" ng-show="form.validatedURL.$error.url">
-          Please enter a valid Wikipedia article URL.
-        </p>
-        <p id="invalid-combination" class="text-center center-block" ng-show="invalidCombination">
-          Please enter an article translatable by Bing Translator.
-        </p>
+        <div id="invalid-url" class="show-hide text-center center-block" ng-show="form.validatedURL.$error.url">
+          <p>
+            Please enter a valid Wikipedia article URL.
+          </p>
+        </div>
+        <div id="invalid-combination" class="show-hide text-center center-block" ng-show="invalidCombination">
+          <p>
+            Please enter an article translatable by Bing Translator.
+          </p>
+        </div>
       </div>
     </div>
 
@@ -29,12 +33,27 @@
 
       <div id="select-lang" class="select-div">
         <span class="fancyArrow"></span>
-        <select ng-model="selectedLang" ng-change="update()">
+        <select ng-model="selectedLang">
           <option ng-repeat="language in languages">{{ language }}</option>
         </select>
       </div>
-    </div>
 
+      <div class="row">
+
+        <div class="lang-1 col-md-6" ng-show="showLang1">
+          <p class="article">
+            {{ lang1Text }}
+          </p>
+        </div>
+
+        <div class="lang-2 col-md-6" ng-show="showLang2">
+          <p class="article">
+            {{ lang2Text }}
+          </p>
+        </div>
+
+      </div>
+    </div>
   </form>
 </div>
 

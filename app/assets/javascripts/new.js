@@ -1,8 +1,3 @@
-//get languages url
-//http://en.wikipedia.org/w/api.php?action=query&format=json&titles=Cloud&prop=langlinks&lllimit=500
-//get html version of article (this is the cleanest it can get
-//http://simple.wikipedia.org/w/api.php?format=json&action=query&titles=Colorado&prop=extracts
-
 if(window.location.pathname === '/') {
 
   var app = angular.module('wiki-form', []);
@@ -11,55 +6,70 @@ if(window.location.pathname === '/') {
   var ARTICLE_REGEXP = /wiki\/.+/;
   var WIKI_REGEXP = /https:\/\/[a-zA-Z\-]{2,12}\.wikipedia\.org\/wiki\/.+/;
   var languages = ["Chinese"]
-  var abbrLang;
+  var lang1Abbr;
   var article;
 
+  app.service("WikiService", function($http) {
+    this.getWikiUrl = function(langURL) {
+      return $http.jsonp(langURL)
+    }
+  });
 
-  app.controller("LangController", function($scope, $http, $timeout) {
+  app.service("BackendService", function($http) {
+    this.getComparison = function(text1, text2, lang1, lang2) {
+      return $http.post('/comparisons', { lang1Text: text1, lang2Text: text2, lang1: lang1, lang2: lang2 })
+    }
+  });
+
+  app.controller("LangController", function($scope, $http, $timeout, WikiService, BackendService) {
 
     $scope.submit = function() {
       if ($scope.userURL) {
         lang2Abbr = (_.invert(LANG_HASH))[$scope.selectedLang];
-        if (LANG_HASH[abbrLang] === undefined || LANG_HASH[lang2Abbr] === "undefined") {
+        if (LANG_HASH[lang1Abbr] === undefined || LANG_HASH[lang2Abbr] === "undefined") {
           $scope.invalidCombination = true;
         } else {
 
           lang2Article = langArticle[lang2Abbr];
-          lang1URL = wikiURL(abbrLang, article);
+          lang1URL = wikiURL(lang1Abbr, article);
           lang2URL = wikiURL(lang2Abbr, lang2Article);
-
           console.log(lang1URL);
           console.log(lang2URL);
 
-          $http.jsonp(lang1URL).success(function(data, status, headers, config) {
+          WikiService.getWikiUrl(lang1URL)
+          .then(function(success) {
+            data = success.data
             parsedArray = parseWikiData(data);
-            console.log(parsedArray);
-          }).
-            error(function(data, status, headers, config) {
+            extract1 = parsedArray.extract;
+            WikiService.getWikiUrl(lang2URL)
+            .then(function(success) {
+              data = success.data
+              parsedArray = parseWikiData(data);
+              extract2 = parsedArray.extract;
+              var lang1 = (_.invert(BING_HASH))[LANG_HASH[lang1Abbr]];
+              var lang2 = (_.invert(BING_HASH))[$scope.selectedLang];
+              console.log(lang1);
+              console.log(lang2);
+              BackendService.getComparison(extract1, extract2, lang1, lang2)
+              .then(function(success) {
+                $scope.lang1Text = success.data.s1;
+                $scope.lang2Text = success.data.s2;
+                $scope.showLang1 = true;
+                $scope.showLang2 = true;
+                console.log(success.data);
+              })
+            });
           });
-
-          $http.jsonp(lang2URL).success(function(data, status, headers, config) {
-            parsedArray = parseWikiData(data);
-            console.log(parsedArray);
-          }).
-            error(function(data, status, headers, config) {
-          });
-
-
-          //post to analysis engine here
         }
       }
     };
 
+    function compareWikis() {
+    }
+
     function wikiURL(abbr, article) {
       return "http://" + abbr + ".wikipedia.org/w/api.php?format=json&action=query&titles=" + article + "&prop=extracts&callback=JSON_CALLBACK";
     }
-
-    $scope.update = function() {
-      if ($scope.userURL) {
-        console.log($scope.selectedLang);
-      }
-    };
 
     $scope.userURL = {
       url: "",
@@ -77,26 +87,29 @@ if(window.location.pathname === '/') {
 
     $scope.changeLangOptions = function() {
       $scope.invalidCombination = false;
+      $scope.showLang1 = false;
+      $scope.showLang2 = false;
       langMatch = LANG_REGEXP.exec($scope.userURL.url);
       articleMatch = ARTICLE_REGEXP.exec($scope.userURL.url);
       if (langMatch === null) {
         $scope.lang.name = defaultLang;
       } else {
-        abbrLang = langMatch[0].slice(8);
+        lang1Abbr = langMatch[0].slice(8);
         article = articleMatch[0].slice(5);
-        $scope.lang.name = LANG_HASH[abbrLang];
-        if (LANG_HASH[abbrLang] === undefined) {
+        $scope.lang.name = LANG_HASH[lang1Abbr];
+        if (LANG_HASH[lang1Abbr] === undefined) {
           $scope.invalidCombination = true;
           $scope.lang.name = defaultLang;
         } else {
-          getArticle(abbrLang, article);
+          getArticle(lang1Abbr, article);
         }
       };
     }
 
-    function getArticle(abbrLang, article) {
-      getURL = "http://" + abbrLang + ".wikipedia.org/w/api.php?action=query&format=json&titles=" + article + "&prop=langlinks&lllimit=500&callback=JSON_CALLBACK";
-      $http.jsonp(getURL).success(function(data, status, headers, config) {
+    function getArticle(lang1Abbr, article) {
+      articleLangsUrl = "http://" + lang1Abbr + ".wikipedia.org/w/api.php?action=query&format=json&titles=" + article + "&prop=langlinks&lllimit=500&callback=JSON_CALLBACK";
+      articleLangs = WikiService.getWikiUrl(articleLangsUrl)
+      .success(function(data, status, headers, config) {
         parsedArray = parseWikiData(data)
         if (missingPage(data)) {
           $scope.invalidCombination = true;
@@ -106,8 +119,6 @@ if(window.location.pathname === '/') {
           mapLangs(toMap);
           $scope.languages = languages;
         }
-      }).
-        error(function(data, status, headers, config) {
       });
     }
 
@@ -139,7 +150,6 @@ if(window.location.pathname === '/') {
       langElem = languages[i]
       if (langElem === undefined) { languages.splice(i, 1) }
     }
-    console.log(languages);
   }
 
   app.directive('validateUrl', function() {
@@ -245,8 +255,6 @@ if(window.location.pathname === '/') {
     "hr": "Croatian",
     "sl": "Slovenian",
     "et": "Estonian",
-    "nn": "Norwegian (Nynorsk)",
-    "simple": "Simple English",
     "el": "Greek",
     "hi": "Hindi",
     "th": "Thai",

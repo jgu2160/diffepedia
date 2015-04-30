@@ -59,7 +59,7 @@ a:link, a:visited, a:active, a:focus {
 select {
   display: inline-block;
   height:30px;
-  width: 190px;
+  width: 150px;
   padding: 2px 10px 2px 2px;
   outline: none;
   color: black;
@@ -73,7 +73,7 @@ select {
   position: relative;
   display: inline-block;
   height:30px;
-  width: 190px;
+  width: 150px;
   padding: 2px 10px 2px 2px;
   outline: none;
   color: black;
@@ -156,7 +156,7 @@ select:hover {
 
 #url {
   border: 1px solid black;
-  width: 472px;
+  width: 390px;
 }
 
 #url:focus, #url:hover {
@@ -265,4 +265,24 @@ select:hover {
   color: $dark-wiki-green;
   font-size: 15px;
   font-weight: bolder;
+  transition: 2s;
+}
+
+.show-hide {
+  -webkit-transition:all linear 3s;
+  transition:all linear 3s;
+}
+
+.show-hide.ng-hide {
+  opacity:0;
+}
+
+.row {
+  margin-top: 30px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.article {
+  text-align: left;
 }
