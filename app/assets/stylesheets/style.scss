@@ -318,13 +318,11 @@ select:hover {
 @-webkit-keyframes stretchdelay {
   0%, 40%, 100% {
     -webkit-transform: scaleX(0.8);
-    background-color: $wiki-green;
-    box-shadow: 0 0 0 rgba(10, 10, 10, 0.1);
+    background-color: $wiki-blue;
   }
   20% {
     -webkit-transform: scaleX(1);
-    background-color: $wiki-green;
-    box-shadow: 0 5px 6px rgba(10, 10, 10, 0.4);
+    background-color: $dark-wiki-blue;
   }
 }
 
@@ -333,12 +331,10 @@ select:hover {
     background-color: $wiki-blue;
     transform: scaleX(0.8);
     -webkit-transform: scaleX(0.8);
-    box-shadow: 0 0 0 rgba(10, 10, 10, 0.1);
   }
   20% {
     background-color: $dark-wiki-blue;
     transform: scaleY(1);
     -webkit-transform: scaleX(1);
-    box-shadow: 0 5px 6px rgba(10, 10, 10, 0.4);
   }
 }

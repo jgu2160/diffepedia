@@ -24,15 +24,15 @@ if(window.location.pathname === '/') {
   app.controller("LangController", function($scope, $http, $timeout, WikiService, BackendService) {
 
     $scope.loading = false;
-    $scope.showLang1 = false;
-    $scope.showLang2 = false;
-
     $scope.submit = function() {
       if ($scope.userURL) {
         lang2Abbr = (_.invert(LANG_HASH))[$scope.selectedLang];
         if (LANG_HASH[lang1Abbr] === undefined || LANG_HASH[lang2Abbr] === "undefined") {
           $scope.invalidCombination = true;
         } else {
+          $scope.showLang1 = false;
+          $scope.showLang2 = false;
+
 
           $scope.loading = true;
 
