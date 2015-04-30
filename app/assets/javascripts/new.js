@@ -54,8 +54,6 @@ if(window.location.pathname === '/') {
               extract2 = parsedArray.extract;
               var lang1 = (_.invert(BING_HASH))[LANG_HASH[lang1Abbr]];
               var lang2 = (_.invert(BING_HASH))[$scope.selectedLang];
-              console.log(lang1);
-              console.log(lang2);
               BackendService.getComparison(extract1, extract2, lang1, lang2)
               .then(function(success) {
                 $scope.loading = false;
