@@ -23,6 +23,7 @@ gem 'tf-idf-similarity'
 gem 'angularjs-rails'
 gem 'sanitize'
 gem 'underscore-rails'
+gem 'unicode_utils'
 
 group :development, :test do
   gem 'byebug'

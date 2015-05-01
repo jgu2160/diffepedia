@@ -5,7 +5,6 @@ class ComparisonsController < ApplicationController
 
   def create
     comparison = Comparison.new(params[:comparison][:lang1Text], params[:comparison][:lang2Text], params[:comparison][:lang1], params[:comparison][:lang2])
-    comparison.translate
     render json: comparison.result
   end
 end
