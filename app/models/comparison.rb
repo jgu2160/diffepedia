@@ -9,6 +9,9 @@ class Comparison
     @lang1 = lang1
     @lang2 = lang2
 
+  end
+
+  def analyze_texts
     sanitize_html
     translate
     clean
@@ -30,9 +33,8 @@ class Comparison
   end
 
   def clean
-    destroy_headers
-    split_p
-    delete_n
+    split_on_headers
+    delete_n_and_p
     comb_words
   end
 
@@ -43,14 +45,11 @@ class Comparison
     self.lang2Text = remove_disambiguation(self.lang2Text)
   end
 
-  def split_p
-    self.lang1Text = self.lang1Text.split("<p>").map { |fragment| fragment.split("</p>") }.flatten
-    self.lang2Text = self.lang2Text.split("<p>").map { |fragment| fragment.split("</p>") }.flatten
-  end
-
-  def delete_n
-    self.lang1Text = self.lang1Text.reject { |fragment| fragment[/\n/]}
-    self.lang2Text = self.lang2Text.reject { |fragment| fragment[/\n/]}
+  def delete_n_and_p
+    self.lang1Text = self.lang1Text.map { |fragment| fragment.gsub(/(<p>|<\/p>)/, " ") }
+    self.lang1Text = self.lang1Text.map { |fragment| fragment.gsub(/\n/, " ") }
+    self.lang2Text = self.lang2Text.map { |fragment| fragment.gsub(/(<p>|<\/p>)/, " ") }
+    self.lang2Text = self.lang2Text.map { |fragment| fragment.gsub(/\n/, " ") }
   end
 
   def comb_words
@@ -62,13 +61,13 @@ class Comparison
     UnicodeUtils.each_word(str).map { |w| w }.select { |w| w[/\p{word}+/]}.join(" ")
   end
 
-  def destroy_headers
-    self.lang1Text.gsub!(h2_regex, "")
-    self.lang2Text.gsub!(h2_regex, "")
+  def split_on_headers
+    self.lang1Text = self.lang1Text.split(h2_regex)
+    self.lang2Text = self.lang2Text.split(h2_regex)
   end
 
   def h2_regex
-    /<h2>[\w|\s]+<\/h2>/
+    /<h2>.+?<\/h2>/
   end
 
   def translate
