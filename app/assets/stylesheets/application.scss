@@ -11,6 +11,7 @@
  * file per style scope.
  @import "bootstrap-sprockets"
  @import "bootstrap"
+ *= require normalize-rails
  *= require_tree .
  *= require_self
  */

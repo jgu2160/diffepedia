@@ -24,6 +24,8 @@ gem 'angularjs-rails'
 gem 'sanitize'
 gem 'underscore-rails'
 gem 'unicode_utils'
+gem 'normalize-rails'
+gem 'narray'
 
 group :development, :test do
   gem 'byebug'

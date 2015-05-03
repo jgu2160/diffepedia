@@ -1,6 +1,6 @@
 class Comparison
   attr_accessor :lang1Text, :lang2Text
-  attr_reader :lang1, :lang2
+  attr_reader :lang1, :lang2, :unique1, :unique2
   MAX_CHARACTERS = 10_000
 
   def initialize(lang1Text, lang2Text, lang1, lang2)
@@ -12,6 +12,21 @@ class Comparison
     sanitize_html
     translate
     clean
+    difference
+    score_both_texts
+  end
+
+  def difference
+    split_lang1 = self.lang1Text.map do |paragraph|
+      paragraph.split(" ")
+    end.flatten
+
+    split_lang2 = self.lang2Text.map do |paragraph|
+      paragraph.split(" ")
+    end.flatten
+
+    @unique1 = (split_lang1 - split_lang2)
+    @unique2 = (split_lang2 - split_lang1)
   end
 
   def clean
@@ -80,7 +95,34 @@ class Comparison
     text[dis_index..-1]
   end
 
-  def score_words
+  def score_both_texts
+    self.lang1Text = score_words(self.lang1Text, unique1)
+    self.lang2Text = score_words(self.lang2Text, unique2)
+  end
 
+  def score_words(text, unique_words)
+    corpus = text.map do |paragraph|
+      TfIdfSimilarity::Document.new(paragraph, library: :narray)
+    end
+
+    model = TfIdfSimilarity::TfIdfModel.new(corpus)
+
+    tfidf_by_term = Hash.new(0)
+    word_count = Hash.new(0)
+
+    corpus.each do |paragraph|
+      unique_words.each do |word|
+        tfidf_by_term[word] += model.tfidf(paragraph, word)
+        word_count[word] += 1
+      end
+    end
+
+    tfidf_average = {}
+
+    tfidf_by_term.each do |key,_|
+      tfidf_average[key] = tfidf_by_term[key] / word_count[key]
+    end
+
+    tfidf_average.sort_by{|_,tfidf| -tfidf}.map { |a| a[0]}.join(" ")
   end
 end

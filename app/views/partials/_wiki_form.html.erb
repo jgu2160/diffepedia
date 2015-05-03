@@ -1,7 +1,7 @@
-<div id="main-div" ng-app="wiki-form" ng-controller="LangController">
+<div id="main-div" ng-app="wiki-form" ng-controller="LangController" class="center-block text-center">
 
   <form class="form" name="form" ng-submit="submit()">
-    <div style="height:40px">
+    <div style="height:40px" class="text-center center-block">
 
       <input id="url" placeholder="Please enter a Wikipedia URL" class="form-control center-block text-center" type="url" ng-model="userURL.url" name="validatedURL" validate-url ng-change="changeLangOptions()"></input>
 
@@ -47,7 +47,7 @@
     <div class="rect3"></div>
   </div>
 
-    <div class="row center-block">
+  <div id="text-analysis" class="row center-block">
 
       <div class="lang-1 col-lg-6" ng-show="showLang1">
         <p class="article">

@@ -6,6 +6,12 @@ $wiki-green: #CEF2E0;
 $dark-wiki-green: #52d192;
 $grey: #A6A6A6;
 
+body {
+  min-height: 850px;
+  margin:0px;
+  padding:0px;
+}
+
 #nav-title {
   /*font-family: Helvetica Neue, Helvetica, Arimo, Liberation Sans, Lucida Grande, sans-serif.*/
   font-family: Times, Georgia, Linux Libertine, Cambria, serif;
@@ -263,7 +269,7 @@ select:hover {
 }
 
 #main-div {
-  width: 1920px;
+  width: 1280px;
   margin-top: 75px;
 }
 
@@ -338,4 +344,8 @@ select:hover {
     transform: scaleY(1);
     -webkit-transform: scaleX(1);
   }
+}
+
+#text-analysis {
+  width: 1280px;
 }
