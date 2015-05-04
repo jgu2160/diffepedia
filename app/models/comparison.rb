@@ -8,7 +8,6 @@ class Comparison
     @lang2Text = lang2Text
     @lang1 = lang1
     @lang2 = lang2
-
   end
 
   def analyze_texts
