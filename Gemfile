@@ -28,6 +28,7 @@ gem 'normalize-rails'
 gem 'narray'
 
 group :development, :test do
+  gem 'pry-rails'
   gem 'byebug'
   gem 'rspec-rails'
   gem 'web-console', '~> 2.0'
