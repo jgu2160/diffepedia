@@ -26,7 +26,6 @@ gem 'underscore-rails'
 gem 'unicode_utils'
 gem 'normalize-rails'
 gem 'narray'
-gem "browserify-rails"
 
 group :development, :test do
   gem 'pry-rails'
