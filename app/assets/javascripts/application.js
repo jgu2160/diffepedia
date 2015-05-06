@@ -17,4 +17,5 @@
 //= require jquery_ujs
 //= require angular
 //= require underscore
+//= require sentiword/lib/index
 //= require_tree .
