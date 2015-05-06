@@ -30,7 +30,6 @@ if(window.location.pathname === '/') {
     $scope.loading = false;
 
     $scope.save = function() {
-      console.log("hi jef");
       BackendService.saveComparison($scope.lang1URL, $scope.lang2URL)
     }
 
@@ -68,8 +67,7 @@ if(window.location.pathname === '/') {
                 $scope.loading = false;
                 $scope.lang1Text = success.data.s1;
                 $scope.lang2Text = success.data.s2;
-                $scope.showLang1 = true;
-                $scope.showLang2 = true;
+                make_clouds($scope.lang1Text.split(" ").slice(0,50), $scope.lang2Text.split(" ").slice(0,50));
                 $scope.submitButton = false;
                 console.log(success.data);
               })
@@ -78,6 +76,14 @@ if(window.location.pathname === '/') {
         }
       }
     };
+
+    function make_clouds(lang1Array, lang2Array) {
+      make_cloud(lang1Array, "#cloud-div-1");
+      make_cloud(lang2Array, "#cloud-div-2")
+      $scope.showLang1 = true;
+      $scope.showLang2 = true;
+    }
+
 
     function wikiURL(abbr, article) {
       return "http://" + abbr + ".wikipedia.org/w/api.php?format=json&action=query&titles=" + article + "&prop=extracts&callback=JSON_CALLBACK";
