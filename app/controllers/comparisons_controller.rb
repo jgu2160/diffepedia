@@ -1,5 +1,4 @@
 class ComparisonsController < ApplicationController
-  MAX_CHARACTERS = 10_000
   def new
   end
 

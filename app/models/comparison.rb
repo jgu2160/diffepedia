@@ -20,11 +20,11 @@ class Comparison
 
   def difference
     split_lang1 = self.lang1Text.map do |paragraph|
-      paragraph.split(" ")
+      paragraph.downcase.split(" ")
     end.flatten
 
     split_lang2 = self.lang2Text.map do |paragraph|
-      paragraph.split(" ")
+      paragraph.downcase.split(" ")
     end.flatten
 
     @unique1 = (split_lang1 - split_lang2)
