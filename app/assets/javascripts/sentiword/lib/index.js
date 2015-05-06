@@ -14,7 +14,7 @@
 * More info about SentiWordNet can be found at
 * http://sentiwordnet.isti.cnr.it/
 */
-var dict = require('../build/modifiedSentiWordNet.json');
+//var dict = require('../build/modifiedSentiWordNet.json');
 
 /**
 * pos is a part-of-setence tagging module that can quickly identify

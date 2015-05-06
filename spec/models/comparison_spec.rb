@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Comparison, type: :model do
-  let(:comparison) { Comparison.new(TEXT1, TEXT2, LANG1, LANG2 ) }
+  let(:comparison) { Comparison.new(TEXT1, TEXT2, LANG1, LANG2, "english.com", "french.com" ) }
   it 'should leave h2s and ps' do
     comparison.sanitize_html
     expect(comparison.lang1Text).to match(/<p>/)
@@ -35,6 +35,11 @@ RSpec.describe Comparison, type: :model do
     comparison.comb_words
     expect(comparison.lang1Text[0]).not_to match(/\./)
     expect(comparison.lang2Text[0]).not_to match(/\./)
+  end
+
+  it 'should create new article on save' do
+    article = comparison.save_article
+    expect(article).to be_an(Article)
   end
 
   LANG1 = "en"

@@ -1,13 +1,15 @@
 class Comparison
   attr_accessor :lang1Text, :lang2Text
-  attr_reader :lang1, :lang2, :unique1, :unique2
+  attr_reader :lang1, :lang2, :unique1, :unique2, :lang1URL, :lang2URL
   MAX_CHARACTERS = 10_000
 
-  def initialize(lang1Text, lang2Text, lang1, lang2)
+  def initialize(lang1Text, lang2Text, lang1, lang2, lang1URL, lang2URL)
     @lang1Text = lang1Text
     @lang2Text = lang2Text
     @lang1 = lang1
     @lang2 = lang2
+    @lang1URL = lang1URL
+    @lang2URL = lang2URL
   end
 
   def analyze_texts
@@ -84,8 +86,8 @@ class Comparison
     self.lang2Text = translation
   end
 
-  def result
-    { s1: lang1Text, s2: lang2Text, l1: lang1, l2: lang2 }
+  def save_article
+    Article.create(lang_1_text: lang1Text, lang_2_text: lang2Text, lang_1: lang1, lang_2: lang2, lang_1_url: lang1URL, lang_2_url: lang2URL )
   end
 
   def remove_disambiguation(text)

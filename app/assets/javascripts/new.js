@@ -16,8 +16,8 @@ if(window.location.pathname === '/') {
   });
 
   app.service("BackendService", function($http) {
-    this.getComparison = function(text1, text2, lang1, lang2) {
-      return $http.post('/comparisons', { lang1Text: text1, lang2Text: text2, lang1: lang1, lang2: lang2 })
+    this.getComparison = function(text1, text2, lang1, lang2, lang1URL, lang2URL) {
+      return $http.post('/comparisons', { lang1Text: text1, lang2Text: text2, lang1: lang1, lang2: lang2, lang1URL: lang1URL, lang2URL: lang2URL })
     }
   });
 
@@ -54,7 +54,7 @@ if(window.location.pathname === '/') {
               extract2 = parsedArray.extract;
               var lang1 = (_.invert(BING_HASH))[LANG_HASH[lang1Abbr]];
               var lang2 = (_.invert(BING_HASH))[$scope.selectedLang];
-              BackendService.getComparison(extract1, extract2, lang1, lang2)
+              BackendService.getComparison(extract1, extract2, lang1, lang2, lang1URL, lang2URL)
               .then(function(success) {
                 $scope.loading = false;
                 $scope.lang1Text = success.data.s1;
