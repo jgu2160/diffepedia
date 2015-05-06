@@ -148,11 +148,11 @@ select:hover {
   opacity: 0;
 }
 
-#submit > .glyphicon {
+.submit > .glyphicon {
   top: 20px;
 }
 
-#submit:hover, #submit:focus, #between:hover {
+.submit:hover, .submit:focus, #between:hover {
   color: $wiki-blue;
   transition: .5s;
   cursor: pointer;
@@ -217,7 +217,7 @@ select:hover {
   opacity: 0;
 }
 
-#submit {
+.submit {
   padding-left: 10px;
   padding-right: 12px;
   background-color: transparent;
@@ -231,11 +231,11 @@ select:hover {
   transition: .75s;
 }
 
-#submit > .glyphicon {
+.submit > .glyphicon {
   top: 20px;
 }
 
-#submit:hover, #submit:focus, #between:hover, #submit:active {
+.submit:hover, .submit:focus, #between:hover, .submit:active {
   color: $wiki-blue;
   transition: .5s;
   cursor: pointer;

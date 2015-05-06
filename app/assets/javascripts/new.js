@@ -19,11 +19,21 @@ if(window.location.pathname === '/') {
     this.getComparison = function(text1, text2, lang1, lang2, lang1URL, lang2URL) {
       return $http.post('/comparisons', { lang1Text: text1, lang2Text: text2, lang1: lang1, lang2: lang2, lang1URL: lang1URL, lang2URL: lang2URL })
     }
+
+    this.saveComparison = function(lang1URL, lang2URL) {
+      return $http.post('/user_articles', { lang1URL: lang1URL, lang2URL: lang2URL })
+    }
   });
 
   app.controller("LangController", function($scope, $http, $timeout, WikiService, BackendService) {
 
     $scope.loading = false;
+
+    $scope.save = function() {
+      console.log("hi jef");
+      BackendService.saveComparison($scope.lang1URL, $scope.lang2URL)
+    }
+
     $scope.submit = function() {
       if ($scope.userURL) {
         lang2Abbr = (_.invert(LANG_HASH))[$scope.selectedLang];
@@ -33,34 +43,34 @@ if(window.location.pathname === '/') {
           $scope.showLang1 = false;
           $scope.showLang2 = false;
 
-
           $scope.loading = true;
 
           lang2Article = langArticle[lang2Abbr];
-          lang1URL = wikiURL(lang1Abbr, article);
-          lang2URL = wikiURL(lang2Abbr, lang2Article);
-          console.log(lang1URL);
-          console.log(lang2URL);
+          $scope.lang1URL = wikiURL(lang1Abbr, article);
+          $scope.lang2URL = wikiURL(lang2Abbr, lang2Article);
+          console.log($scope.lang1URL);
+          console.log($scope.lang2URL);
 
-          WikiService.getWikiUrl(lang1URL)
+          WikiService.getWikiUrl($scope.lang1URL)
           .then(function(success) {
             data = success.data
             parsedArray = parseWikiData(data);
             extract1 = parsedArray.extract;
-            WikiService.getWikiUrl(lang2URL)
+            WikiService.getWikiUrl($scope.lang2URL)
             .then(function(success) {
               data = success.data
               parsedArray = parseWikiData(data);
               extract2 = parsedArray.extract;
               var lang1 = (_.invert(BING_HASH))[LANG_HASH[lang1Abbr]];
               var lang2 = (_.invert(BING_HASH))[$scope.selectedLang];
-              BackendService.getComparison(extract1, extract2, lang1, lang2, lang1URL, lang2URL)
+              BackendService.getComparison(extract1, extract2, lang1, lang2, $scope.lang1URL, $scope.lang2URL)
               .then(function(success) {
                 $scope.loading = false;
                 $scope.lang1Text = success.data.s1;
                 $scope.lang2Text = success.data.s2;
                 $scope.showLang1 = true;
                 $scope.showLang2 = true;
+                $scope.submitButton = false;
                 console.log(success.data);
               })
             });
@@ -77,6 +87,8 @@ if(window.location.pathname === '/') {
       url: "",
     };
 
+    $scope.submitButton = true;
+
     $scope.selectedLang = "Chinese"
 
     $scope.lang = {
@@ -91,6 +103,7 @@ if(window.location.pathname === '/') {
       $scope.invalidCombination = false;
       $scope.showLang1 = false;
       $scope.showLang2 = false;
+      $scope.submitButton = true;
       langMatch = LANG_REGEXP.exec($scope.userURL.url);
       articleMatch = ARTICLE_REGEXP.exec($scope.userURL.url);
       if (langMatch === null) {

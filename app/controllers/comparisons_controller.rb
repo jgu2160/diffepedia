@@ -13,4 +13,8 @@ class ComparisonsController < ApplicationController
       render json: article.result
     end
   end
+
+  def update
+    require 'byebug'; byebug
+  end
 end

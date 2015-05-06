@@ -1,7 +1,8 @@
 {
-  "name": "diffepedia",
-  "devDependencies": {
-    "sentiword": "0.0.1"
-  },
-  "dependencies": {}
+    "name": "diffepedia",
+    "dependencies": {
+        "sentiword": "0.0.1",
+        "browserify": "~> 6.3",
+        "browserify-incremental": "^1.4.0"
+    }
 }

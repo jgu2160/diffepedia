@@ -1,6 +1,5 @@
 <div id="main-div" ng-app="wiki-form" ng-controller="LangController" class="center-block text-center">
 
-  <form class="form" name="form" ng-submit="submit()">
     <div style="height:40px" class="text-center center-block">
 
       <input id="url" placeholder="Please enter a Wikipedia URL" class="form-control center-block text-center" type="url" ng-model="userURL.url" name="validatedURL" validate-url ng-change="changeLangOptions()"></input>
@@ -27,9 +26,19 @@
         </p>
       </div>
 
-      <button type="submit" id="submit">
-        <i class="glyphicon glyphicon-refresh text-center"></i>
-      </button>
+      <% if current_user %>
+        <button type="submit" class="submit" ng-click="submit()" ng-show="submitButton">
+          <i class="glyphicon glyphicon-refresh text-center"></i>
+        </button>
+
+        <button type="submit" class="submit" ng-click="save()" ng-hide="submitButton">
+          <i class="glyphicon glyphicon-floppy-disk text-center"></i>
+        </button>
+      <% else %>
+        <button type="submit" class="submit" ng-click="submit()">
+          <i class="glyphicon glyphicon-refresh text-center"></i>
+        </button>
+      <% end %>
 
       <div id="select-lang" class="select-div">
         <span class="fancyArrow"></span>
@@ -39,7 +48,6 @@
       </div>
 
     </div>
-  </form>
 
   <div class="spinner" ng-show="loading">
     <div class="rect1"></div>
