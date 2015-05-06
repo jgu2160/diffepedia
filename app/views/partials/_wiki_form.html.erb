@@ -47,20 +47,21 @@
     <div class="rect3"></div>
   </div>
 
-  <div id="text-analysis" class="row center-block">
 
-      <div class="lang-1 col-lg-6" ng-show="showLang1">
-        <p class="article">
-          {{ lang1Text }}
-        </p>
-      </div>
+  <div id="text-analysis" class="center-block">
 
-      <div class="lang-2 col-lg-6" ng-show="showLang2">
-        <p class="article">
-          {{ lang2Text }}
-        </p>
-      </div>
-
+    <div class="lang-1 col-lg-6" ng-show="showLang1">
+      <p id="article-1">
+        {{ lang1Text }}
+      </p>
     </div>
+
+    <div class="lang-2 col-lg-6" ng-show="showLang2">
+      <p id="article-2">
+        {{ lang2Text }}
+      </p>
+    </div>
+
+  </div>
 
 </div>

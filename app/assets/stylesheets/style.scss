@@ -270,6 +270,8 @@ select:hover {
 
 #main-div {
   margin-top: 75px;
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
 #invalid-url, #invalid-combination {
@@ -294,7 +296,11 @@ select:hover {
   margin-left: 20px;
 }
 
-.article {
+#article-1 {
+  text-align: right;
+}
+
+#article-2 {
   text-align: left;
 }
 
@@ -346,5 +352,5 @@ select:hover {
 }
 
 #text-analysis {
-  width: 1280px;
+  margin-top: 30px;
 }
