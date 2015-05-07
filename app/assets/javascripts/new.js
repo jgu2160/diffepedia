@@ -37,12 +37,9 @@ if(window.location.pathname === '/') {
     $scope.userArticles = ["1", "2"]
 
     $scope.save = function() {
-      console.log("saving");
       BackendService.getCSRF().then(function(success) {
-        console.log(success.data);
         user_id = success.data.user_id;
         BackendService.saveComparison($scope.lang1URL, $scope.lang2URL, user_id).then( function(success) {
-          console.log(success.data);
         })
       })
     }
@@ -300,4 +297,26 @@ if(window.location.pathname === '/') {
     "ht": "Haitian",
     "mt": "Maltese"
   };
+
 };
+
+$(document).ready(function() {
+
+  $('[data-toggle="popover"]').popover();
+
+  $('body').on('click', function (e) {
+    //only buttons
+    if ($(e.target).data('toggle') !== 'popover'
+        && $(e.target).parents('.popover.in').length === 0) {
+          $('[data-toggle="popover"]').popover('hide');
+        }
+        //buttons and icons within buttons
+        /*
+           if ($(e.target).data('toggle') !== 'popover'
+           && $(e.target).parents('[data-toggle="popover"]').length === 0
+           && $(e.target).parents('.popover.in').length === 0) {
+           $('[data-toggle="popover"]').popover('hide');
+           }
+           */
+  });
+});
