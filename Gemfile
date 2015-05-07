@@ -26,6 +26,7 @@ gem 'underscore-rails'
 gem 'unicode_utils'
 gem 'normalize-rails'
 gem 'narray'
+gem 'angular-ui-bootstrap-rails'
 
 group :development, :test do
   gem 'pry-rails'

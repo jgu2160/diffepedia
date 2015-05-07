@@ -1,6 +1,6 @@
 if(window.location.pathname === '/') {
 
-  var app = angular.module('wiki-form', []);
+  var app = angular.module('wiki-form', ["ui.bootstrap"]);
   var defaultLang = "English";
   var LANG_REGEXP = /https:\/\/[a-zA-Z\-]{2,12}/;
   var ARTICLE_REGEXP = /wiki\/.+/;
@@ -16,21 +16,34 @@ if(window.location.pathname === '/') {
   });
 
   app.service("BackendService", function($http) {
+
+    this.getCSRF = function() {
+      return $http.get("/session")
+    }
+
     this.getComparison = function(text1, text2, lang1, lang2, lang1URL, lang2URL) {
       return $http.post('/comparisons', { lang1Text: text1, lang2Text: text2, lang1: lang1, lang2: lang2, lang1URL: lang1URL, lang2URL: lang2URL })
     }
 
-    this.saveComparison = function(lang1URL, lang2URL) {
-      return $http.post('/user_articles', { lang1URL: lang1URL, lang2URL: lang2URL })
+    this.saveComparison = function(lang1URL, lang2URL, user_id) {
+      return $http.post('/user_articles', { lang1URL: lang1URL, lang2URL: lang2URL, user_id: user_id })
     }
   });
 
   app.controller("LangController", function($scope, $http, $timeout, WikiService, BackendService) {
 
     $scope.loading = false;
+    $scope.submitButton = true;
 
     $scope.save = function() {
-      BackendService.saveComparison($scope.lang1URL, $scope.lang2URL)
+      console.log("saving");
+      BackendService.getCSRF().then(function(success) {
+        console.log(success.data);
+        user_id = success.data.user_id;
+        BackendService.saveComparison($scope.lang1URL, $scope.lang2URL, user_id).then( function(success) {
+          console.log(success.data);
+        })
+      })
     }
 
     $scope.submit = function() {
@@ -41,6 +54,7 @@ if(window.location.pathname === '/') {
         } else {
           $scope.showLang1 = false;
           $scope.showLang2 = false;
+          $scope.submitButton = true;
 
           $("#cloud-div-1").empty();
           $("#cloud-div-2").empty();

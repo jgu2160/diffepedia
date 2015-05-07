@@ -17,4 +17,5 @@
 //= require jquery_ujs
 //= require angular
 //= require underscore
+//= require angular-ui-bootstrap
 //= require_tree .
