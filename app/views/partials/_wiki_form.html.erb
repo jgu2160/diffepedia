@@ -32,7 +32,7 @@
           <i class="glyphicon glyphicon-refresh text-center"></i>
         </button>
 
-        <button type="submit" class="submit" ng-click="save()" ng-hide="submitButton">
+        <button type="button" class="submit" ng-click="save()" ng-hide="submitButton">
           <i class="glyphicon glyphicon-floppy-disk text-center"></i>
         </button>
       <% else %>
@@ -63,17 +63,11 @@
     <div class="lang-1 col-lg-6" ng-show="showLang1">
       <div id="cloud-div-1" class="name">
       </div>
-      <%#<p id="article-1">%>
-        <%#{{ lang1Text }}%>
-        <%#</p>%>
     </div>
 
     <div class="lang-2 col-lg-6" ng-show="showLang2">
       <div id="cloud-div-2" class="name">
       </div>
-      <%#<p id="article-2">%>
-        <%#{{ lang2Text }}%>
-        <%#</p>%>
     </div>
 
   </div>
