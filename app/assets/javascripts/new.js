@@ -1,6 +1,6 @@
 if(window.location.pathname === '/') {
 
-  var app = angular.module('wiki-form', ["ui.bootstrap"]);
+  var app = angular.module('wiki-form', []);
   var defaultLang = "English";
   var LANG_REGEXP = /https:\/\/[a-zA-Z\-]{2,12}/;
   var ARTICLE_REGEXP = /wiki\/.+/;
