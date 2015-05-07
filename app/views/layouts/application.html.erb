@@ -27,12 +27,16 @@
                 <i class="glyphicon glyphicon-menu-hamburger"></i>
               </a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
+                <%#<li ng-repeat="article in userArticles">{{ article }}</li>%>
+                <li>
+                  Tianmen Square (en->zh)
+                </li>
+
+                <li>
+                  Philosophy (en -> fr)
+                </li>
                 <li class="divider"></li>
                 <li>
-                  <a href="#">Separated link</a>
                   <%= link_to "Logout", logout_path, method: :delete %>
                 </li>
               </ul>

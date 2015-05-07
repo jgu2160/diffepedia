@@ -34,6 +34,7 @@ if(window.location.pathname === '/') {
 
     $scope.loading = false;
     $scope.submitButton = true;
+    $scope.userArticles = ["1", "2"]
 
     $scope.save = function() {
       console.log("saving");
