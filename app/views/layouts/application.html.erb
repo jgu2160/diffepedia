@@ -16,20 +16,25 @@
             <br><span id="little-title">The Wikipedia Comparator</span></a>
         </div>
 
-        <div class="collapse navbar-collapse pull-right" id="misc-nav">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav navbar-right">
             <% if current_user %>
-              <div id="cu-div">
+              <li id="cu-div">
                 <%= image_tag "Twitter_logo_blue.png", height: "30", id: "twitter-img-name" %>
                 <span id="twitter-name">@<%= current_user.name %></span>
-              </div>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="glyphicon glyphicon-menu-hamburger"></i>
+                </a>
+              </li>
             <% else %>
-              <%= link_to "/auth/twitter", class: "btn btn-lg btn-default btn-home", id: "twitter-login" do %>
-                <%= image_tag "Twitter_logo_blue.png", height: "30", id: "" %>
-              <% end %>
+              <li>
+                <%= link_to "/auth/twitter", class: "btn btn-lg btn-default btn-home", id: "twitter-login" do %>
+                  <%= image_tag "Twitter_logo_blue.png", height: "30", id: "" %>
+                <% end %>
+              </li>
             <% end %>
           </ul>
-        </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
 
