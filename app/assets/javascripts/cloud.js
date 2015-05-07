@@ -3,11 +3,11 @@ $(document).ready(function() {
 });
 
 function make_cloud(word_array, div) {
-  var word_array = word_array || ["Hello", "world", "normally", "you", "want", "more", "words"]
+  var word_array = word_array || ["❨╯°□°❩╯︵┻━┻", "❨╯°□°❩╯︵┻━┻", "❨╯°□°❩╯︵┻━┻", "you", "want", "more", "words"]
   var div = div || "#cloud-div"
   var fill = d3.scale.linear()
-  .domain([1, 100])
-  .range(["black", "#E3E3E3"]);
+  .domain([1, 50])
+  .range(["black", "white"]);
 
   var font = "Roboto";
   var cloudSize = [500, 500];
@@ -22,12 +22,13 @@ function make_cloud(word_array, div) {
         }
       return {text: d, size: fontSize};
     }))
-    .padding(0)
+    .padding(1)
     .rotate(function() { return 0; })
     .font(font)
     .fontSize(function(d) { return d.size; })
     .on("end", draw)
     .start();
+
     function draw(words) {
       var sumSize = 0;
       var width = cloudSize[0];
@@ -36,9 +37,7 @@ function make_cloud(word_array, div) {
       .attr("width", width)
       .attr("height", height)
       .append("g")
-      .attr("width", width - 300)
-      .attr("height", height - 300)
-      .attr("transform", "translate(200,300)")
+      .attr("transform", "translate(250,250)")
       .selectAll("text")
       .data(words)
       .enter().append("text")
@@ -49,14 +48,7 @@ function make_cloud(word_array, div) {
       .style("fill", function(d, i) { return fill(i); })
       .attr("text-anchor", "middle")
       .attr("transform", function(d, i) {
-        console.log(d);
         return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate +       ")";
-        //lastIndex = i - 1
-        //if (lastIndex > -1) {
-          //sumSize += words[lastIndex].size - 20
-        //}
-
-        //return "translate(" + [100, sumSize] + ")rotate(" + d.rotate + ")";
       })
       .text(function(d) { return d.text; });
     }

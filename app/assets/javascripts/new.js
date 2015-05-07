@@ -42,6 +42,9 @@ if(window.location.pathname === '/') {
           $scope.showLang1 = false;
           $scope.showLang2 = false;
 
+          $("#cloud-div-1").empty();
+          $("#cloud-div-2").empty();
+
           $scope.loading = true;
 
           lang2Article = langArticle[lang2Abbr];
@@ -78,10 +81,10 @@ if(window.location.pathname === '/') {
     };
 
     function make_clouds(lang1Array, lang2Array) {
-      make_cloud(lang1Array, "#cloud-div-1");
-      make_cloud(lang2Array, "#cloud-div-2")
       $scope.showLang1 = true;
       $scope.showLang2 = true;
+      make_cloud(lang1Array, "#cloud-div-1");
+      make_cloud(lang2Array, "#cloud-div-2")
     }
 
 
