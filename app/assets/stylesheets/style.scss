@@ -287,6 +287,10 @@ select:hover {
   transition:all linear 3s;
 }
 
+.ng-hide-add, .ng-hide-remove {
+  transition: 0.5s linear all;
+}
+
 .show-hide.ng-hide {
   opacity:0;
 }

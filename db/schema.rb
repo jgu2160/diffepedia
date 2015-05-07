@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506005207) do
+ActiveRecord::Schema.define(version: 20150507031530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,9 @@ ActiveRecord::Schema.define(version: 20150506005207) do
     t.text     "lang_1_text"
     t.text     "lang_2_text"
   end
+
+  add_index "articles", ["lang_1_url"], name: "index_articles_on_lang_1_url", using: :btree
+  add_index "articles", ["lang_2_url"], name: "index_articles_on_lang_2_url", using: :btree
 
   create_table "user_articles", force: :cascade do |t|
     t.integer  "user_id"
