@@ -27,19 +27,9 @@
         </p>
       </div>
 
-      <% if current_user %>
-        <button type="submit" class="submit" ng-show="submitButton">
-          <i class="glyphicon glyphicon-refresh text-center"></i>
-        </button>
-
-        <button type="button" class="submit" ng-click="save()" ng-hide="submitButton">
-          <i class="glyphicon glyphicon-floppy-disk text-center"></i>
-        </button>
-      <% else %>
-        <button type="submit" class="submit">
-          <i class="glyphicon glyphicon-refresh text-center"></i>
-        </button>
-      <% end %>
+      <button type="submit" class="submit">
+        <i class="glyphicon glyphicon-refresh text-center"></i>
+      </button>
 
       <div id="select-lang" class="select-div">
         <span class="fancyArrow"></span>

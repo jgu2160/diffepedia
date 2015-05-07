@@ -42,7 +42,7 @@ function make_cloud(word_array, div) {
       .data(words)
       .enter().append("text")
       .style("fill", "white")
-      .transition().duration(1500)
+      .transition().duration(3500)
       .style("font-size", function(d) { return d.size + "px"; })
       .style("font-family", font)
       .style("fill", function(d, i) { return fill(i); })

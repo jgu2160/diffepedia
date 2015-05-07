@@ -50,8 +50,6 @@ if(window.location.pathname === '/') {
           lang2Article = langArticle[lang2Abbr];
           $scope.lang1URL = wikiURL(lang1Abbr, article);
           $scope.lang2URL = wikiURL(lang2Abbr, lang2Article);
-          console.log($scope.lang1URL);
-          console.log($scope.lang2URL);
 
           WikiService.getWikiUrl($scope.lang1URL)
           .then(function(success) {
@@ -72,7 +70,6 @@ if(window.location.pathname === '/') {
                 $scope.lang2Text = success.data.s2;
                 make_clouds($scope.lang1Text.split(" ").slice(0,50), $scope.lang2Text.split(" ").slice(0,50));
                 $scope.submitButton = false;
-                console.log(success.data);
               })
             });
           });
