@@ -301,7 +301,6 @@ if(window.location.pathname === '/') {
 };
 
 $(document).ready(function() {
-
   $('[data-toggle="popover"]').popover();
 
   $('body').on('click', function (e) {
