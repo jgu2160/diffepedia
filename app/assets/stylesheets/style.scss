@@ -49,12 +49,6 @@ body {
   background: white;
 }
 
-.navbar:hover {
-  border-bottom: 1px solid $wiki-blue;
-  transition: 1.75s;
-}
-
-
 a:link, a:visited, a:active, a:focus {
   text-decoration: none;
   outline: 0;
@@ -358,4 +352,9 @@ select:hover {
 
 #text-analysis {
   margin-top: 20px;
+}
+
+#hamburger, #hamburger:hover {
+  transition: 0.5s;
+  size: 3em;
 }
